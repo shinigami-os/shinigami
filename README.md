@@ -15,6 +15,7 @@ Based on Linux **v6.12.85** (longterm), patched and configured for x86-64 develo
 ```bash
 make LLVM=1 kira_defconfig
 make LLVM=1 -j$(nproc)
+make LLVM=1 prepare # remove the `-dirty` suffix
 ```
 
 Requires `clang 19+` and standard kernel build dependencies (`bc`, `flex`, `bison`, `libssl-dev`, `libelf-dev`).
