@@ -178,3 +178,33 @@ sphinx_*/
 
 # Rust analyzer configuration
 /rust-project.json
+
+# Build artifacts (shinigami)
+/.config
+/.config.old
+/.missing-syscalls.d
+/*.cmd
+/.module-common.o
+/.modules.builtin.cmd
+/.modules.builtin.modinfo.cmd
+/.modules.order.cmd
+/.tmp_initcalls.lds
+/.tmp_vmlinux.kallsyms0.syms
+/.built-in.a.cmd
+/.Module.symvers.cmd
+/.checked-atomic-*.h
+/.checked-atomic-*.h.cmd
+/.config
+/.config.old
+/.missing-syscalls.d
+/*.cmd
+/.module-common.o
+/.modules.builtin.cmd
+/.modules.builtin.modinfo.cmd
+/.modules.order.cmd
+/.tmp_initcalls.lds
+/.tmp_vmlinux.kallsyms0.syms
+/.built-in.a.cmd
+/.Module.symvers.cmd
+/.checked-atomic-*.h
+/.checked-atomic-*.h.cmd
