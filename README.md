@@ -3,6 +3,24 @@
 Shinigami is the Linux kernel fork powering [Kira Linux](https://github.com/shinigami-os).  
 Based on Linux **v6.12.85** (longterm), patched and configured for x86-64 developer workloads.
 
+## Versioning
+
+Shinigami releases follow the format `LINUX_VERSION-shinigami-SHINIGAMI_VERSION`:
+
+```
+6.12.85-shinigami-26.07
+```
+
+- **`LINUX_VERSION`** : the upstream Linux version this release is based on (e.g. `6.12.85`)
+- **`SHINIGAMI_VERSION`** : the Kira patchset version, following the `YY.MM` scheme shared with `kira-base` and `flux`
+
+The two components are independent:
+- Pulling a new upstream kernel bumps `LINUX_VERSION` only (e.g. `7.0.0-shinigami-26.07`)
+- Applying new Kira patches bumps `SHINIGAMI_VERSION` only (e.g. `6.12.85-shinigami-26.08`)
+- Both can change at once
+
+The full release string is produced at build time and stored in `include/config/kernel.release`.
+
 ## What's different from upstream
 
 - **BORE scheduler** (v6.5.5): better interactive responsiveness under mixed workloads
