@@ -65,7 +65,7 @@ sudo make LLVM=1 INSTALL_MOD_PATH=<sysroot> modules_install
 
 ## Versioning and release procedure
 
-Tagged as `v<linux-version>-shinigami-<YY.MM>[-N]`, e.g. `v7.1.3-shinigami-26.07-4`. `uname -r` reports the same string via `CONFIG_LOCALVERSION`, which is what `flux kernel-update` parses to compare against the latest release.
+Tagged as `v<linux-version>-shinigami-<YY.MM>[-N]`, e.g. `v7.1.3-shinigami-26.08-3`. `uname -r` reports the same string via `CONFIG_LOCALVERSION`, which is what `flux kernel-update` parses to compare against the latest release.
 
 Required after every kernel change:
 
