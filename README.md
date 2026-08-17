@@ -18,8 +18,6 @@ Every patch has a documented reason and lives under `patches/<category>/`, categ
 | `patches/perf/0001-bore-cachy.patch` | perf | BORE scheduler (Burst-Oriented Response Enhancer, CachyOS port). Discriminates tasks by burst time and prioritizes low-burst ones (compositors, terminal emulators, widgets) for better interactive responsiveness with a small fairness tradeoff. Adds `CONFIG_SCHED_BORE` (default `y`) : applied with one manual hunk fix on 7.1.3 (upstream's `CONFIG_CACHY` context block is absent in vanilla, same fix needed on the earlier 6.12.85 base). |
 | `patches/compat/0001-acpi-call.patch` | compat | Adds the `acpi_call` module (`/proc/acpi/call`), for direct ACPI method calls needed by some laptop hardware control tooling. Needed a `static` keyword added to `decodeHex()` to satisfy clang's `-Werror,-Wmissing-prototypes`. |
 
-**Rejected:** CachyOS's `clang-polly` patch : Debian's packaged clang 19 has an `LLVMPolly.so` plugin conflict (`polly-dependences-computeout` registered twice), making it non-functional without building clang from source with Polly enabled. Not worth the build complexity for the gain.
-
 ## Config philosophy
 
 Maintained as a Kira-specific `defconfig` (`arch/x86/configs/kira_defconfig`), not a monolithic checked-in `.config`. Modules over built-ins where reasonably possible, to keep the base image small : except where a driver needs to be available before the root filesystem exists (framebuffer console, EFI framebuffer, NVMe). `CONFIG_IKCONFIG` is on, so the running config is always inspectable via `/proc/config.gz`. A handful of KSPP (Kernel Self Protection Project) hardening options are enabled (`SLAB_FREELIST_HARDENED`, `FORTIFY_SOURCE`, `SECURITY_LOCKDOWN_LSM`, etc.).
