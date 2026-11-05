@@ -7,7 +7,7 @@ This file (`README`, no extension) is the original upstream kernel README, kept 
 
 ## Current base
 
-Linux **7.1.3**, built exclusively with `clang 19+` (`LLVM=1` : gcc is not used for Shinigami builds) and Thin LTO.
+Linux **7.3.1**, built exclusively with `clang 19+` (`LLVM=1` : gcc is not used for Shinigami builds) and Thin LTO.
 
 ## Patch philosophy
 
@@ -15,7 +15,7 @@ Every patch has a documented reason and lives under `patches/<category>/`, categ
 
 | Patch | Category | What it does |
 |---|---|---|
-| `patches/perf/0001-bore-cachy.patch` | perf | BORE scheduler (Burst-Oriented Response Enhancer, CachyOS port). Discriminates tasks by burst time and prioritizes low-burst ones (compositors, terminal emulators, widgets) for better interactive responsiveness with a small fairness tradeoff. Adds `CONFIG_SCHED_BORE` (default `y`) : applied with one manual hunk fix on 7.1.3 (upstream's `CONFIG_CACHY` context block is absent in vanilla, same fix needed on the earlier 6.12.85 base). |
+| `patches/perf/0001-bore-cachy.patch` | perf | BORE scheduler (Burst-Oriented Response Enhancer, CachyOS port). Discriminates tasks by burst time and prioritizes low-burst ones (compositors, terminal emulators, widgets) for better interactive responsiveness with a small fairness tradeoff. Adds `CONFIG_SCHED_BORE` (default `y`) : applied with one manual hunk fix on 7.3.1 (upstream's `CONFIG_CACHY` context block is absent in vanilla, same fix needed on the earlier 7.1.3 and 6.12.85 bases; one more hunk is dropped because `update_protect_slice()` no longer uses `normalized_sysctl_sched_base_slice`). |
 | `patches/compat/0001-acpi-call.patch` | compat | Adds the `acpi_call` module (`/proc/acpi/call`), for direct ACPI method calls needed by some laptop hardware control tooling. Needed a `static` keyword added to `decodeHex()` to satisfy clang's `-Werror,-Wmissing-prototypes`. |
 
 ## Config philosophy
@@ -63,7 +63,7 @@ sudo make LLVM=1 INSTALL_MOD_PATH=<sysroot> modules_install
 
 ## Versioning and release procedure
 
-Tagged as `v<linux-version>-shinigami-<YY.MM>[-N]`, e.g. `v7.1.3-shinigami-26.08-3`. `uname -r` reports the same string via `CONFIG_LOCALVERSION`, which is what `flux kernel-update` parses to compare against the latest release.
+Tagged as `v<linux-version>-shinigami-<YY.MM>[-N]`, e.g. `v7.3.1-shinigami-26.11`. `uname -r` reports the same string via `CONFIG_LOCALVERSION`, which is what `flux kernel-update` parses to compare against the latest release.
 
 Required after every kernel change:
 
@@ -80,8 +80,8 @@ git add arch/x86/configs/kira_defconfig && git commit -m "config: bump version"
 # 3. Annotated tags (BOTH required : setlocalversion needs an annotated
 #    v<linux-version> exactly at HEAD to suppress the "+" suffix; a lightweight
 #    tag won't do it, and the base tag has to move to HEAD after every commit)
-git tag -d v7.1.3 && git tag -a v7.1.3 -m "Linux 7.1.3 base"
-git tag -a v7.1.3-shinigami-YY.MM-N -m "Shinigami YY.MM-N"
+git tag -d v7.3.1 && git tag -a v7.3.1 -m "Linux 7.3.1 base"
+git tag -a v7.3.1-shinigami-YY.MM-N -m "Shinigami YY.MM-N"
 
 # 4. Build and verify (no + suffix in the output)
 make LLVM=1 -j$(nproc) && cat include/config/kernel.release
